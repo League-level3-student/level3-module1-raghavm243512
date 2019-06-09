@@ -27,6 +27,8 @@ public class _06_IPodShuffle extends JPanel implements ActionListener{
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.add(this);
 		j.setVisible(true);
+		j.setSize(1920, 1080);
+		j.add(button);
 		
 		songs = new ArrayList<Song>();
 		songs.add(new Song("demo.mp3"));
