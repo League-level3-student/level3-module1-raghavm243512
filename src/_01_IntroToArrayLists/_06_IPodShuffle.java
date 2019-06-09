@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -13,11 +14,15 @@ import javax.swing.JPanel;
 
 public class _06_IPodShuffle extends JPanel implements ActionListener{
 	ArrayList<Song> songs;
+	JButton button;
 	public _06_IPodShuffle() {
 		// 1. Use the Song class the play the demo.mp3 file.
 				
 //				Song song = new Song("demo.mp3");
 //				song.play();
+		button = new JButton();
+		button.addActionListener(this);
+		button.setText("Suprise me");
 		JFrame j = new JFrame("songs");
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		j.add(this);
@@ -42,6 +47,9 @@ public class _06_IPodShuffle extends JPanel implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
+		if ((JButton)e.getSource()==button) {
+			songs.get((int)(Math.random()*songs.size())).play();
+		}
 		
 	}
 }
