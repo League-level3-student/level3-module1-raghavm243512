@@ -79,7 +79,8 @@ public class _02_TextUndoRedo extends JPanel implements ActionListener, KeyListe
 			text.push(deleted.pop());
 			
 		}
-		else {
+		else if (e.getKeyCode()!=KeyEvent.VK_SHIFT){
+			
 			text.push(Character.toString(e.getKeyChar()));
 			
 			
