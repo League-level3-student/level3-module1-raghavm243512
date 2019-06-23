@@ -28,21 +28,25 @@ public class _02_TextUndoRedo extends JPanel implements ActionListener, KeyListe
 	 * off the Stack and added back to the JLabel.
 	 * 
 	 * */
-	JLabel a;
 	Stack<String> deleted = new Stack<String>();
-	ArrayList<String> text = new ArrayList<String>();
+	Stack<String> text = new Stack<String>();
+	Font font = new Font("Serif", Font.PLAIN, 12);
 	public static void main(String[] args) {
 		new _02_TextUndoRedo();
 	}
 	public void paint(Graphics g) {
 		super.paintComponent(g);
-		g.setFont(f);
-		g.drawString("sehgt", 50, 100);
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setFont(font);
+		String d = "";
+		for (String i : text)
+			d+=i;
+		g2.drawString(d, 3, 10);
 	}
-	Font f = new Font("Serif", Font.PLAIN, 10);
 	public _02_TextUndoRedo() {
 		JFrame j = new JFrame();
 		j.setTitle("");
+		j.getContentPane().add(this);
 		j.addKeyListener(this);
 		j.setSize(1920, 1080);
 		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -67,25 +71,17 @@ public class _02_TextUndoRedo extends JPanel implements ActionListener, KeyListe
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getKeyCode()==KeyEvent.VK_BACK_SPACE&&text.size()>0) {
-			deleted.push(text.remove(text.size()-1));
-			String d = "";
-			for (String i : text)
-				d+=i;
-			System.out.println(d);
+			deleted.push(text.pop());
+			
+			
 		}
 		else if (e.getKeyCode()==KeyEvent.VK_ALT&&deleted.size()>0) {
-			text.add(deleted.pop());
-			String d = "";
-			for (String i : text)
-				d+=i;
-			System.out.println(d);
+			text.push(deleted.pop());
+			
 		}
 		else {
-			text.add(Character.toString(e.getKeyChar()));
-			String d = "";
-			for (String i : text)
-				d+=i;
-			System.out.println(d);
+			text.push(Character.toString(e.getKeyChar()));
+			
 			
 		}
 	}
