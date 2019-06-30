@@ -1,7 +1,18 @@
 package _06_Intro_To_Hash_Maps;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.HashMap;
 
-public class _02_LogSearch {
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.Timer;
+
+public class _02_LogSearch extends JPanel implements ActionListener {
   /* 
 	 * Crate a HashMap of Integers for the keys and Strings for the values.
 	 * Create a GUI with three buttons. 
@@ -29,5 +40,66 @@ public class _02_LogSearch {
 	 * 				is not in the list. 
 	 *
 	 * */
+	
+	JButton add = new JButton("Add Entry");
+	JButton search = new JButton("Search By ID");
+	JButton view = new JButton("View All");
+	JButton remove = new JButton("Remove");
+	HashMap<Integer, String> h = new HashMap<Integer, String>();
+
+	public static void main(String[] args) {
+		new  _02_LogSearch();
+	}
+	public _02_LogSearch() {
+		JFrame j = new JFrame();
+		j.setTitle("Log");
+		j.getContentPane().add(this);
+		j.setSize(1920, 1080);
+		j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		j.setResizable(true);
+		j.setVisible(true);
+		add.addActionListener(this);
+		search.addActionListener(this);
+		view.addActionListener(this);
+		remove.addActionListener(this);
+		this.add(remove);
+		this.add(add);
+		this.add(search);
+		this.add(view);
+		t = new Timer(17, this);
+		t.start();
+	}
+	Timer t;
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		JButton buttonClicked = (JButton)e.getSource();
+		if (buttonClicked == add){
+			int id = Integer.parseInt(JOptionPane.showInputDialog("Enter Integer ID"));
+			String name = JOptionPane.showInputDialog("Enter name");
+			h.put(id, name);
+		}
+		
+		if (buttonClicked == search) {
+			int id = Integer.parseInt(JOptionPane.showInputDialog("Enter Integer ID"));
+			String name = h.get(id);
+			JOptionPane.showMessageDialog(null, name);
+		}
+		
+		if (buttonClicked == view) {
+			String display = "";
+			for (int i : h.keySet()) {
+				display += "ID " + i + " Name " + h.get(i) + "\n";
+			}
+			JOptionPane.showMessageDialog(null, display);
+			
+		}
+		
+		if (buttonClicked == remove) {
+			int id = Integer.parseInt(JOptionPane.showInputDialog("Enter Integer ID"));
+			h.remove(id);
+		}
+		
+	}
 	
 }
